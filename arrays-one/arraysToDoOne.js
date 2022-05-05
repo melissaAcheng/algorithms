@@ -43,3 +43,19 @@ function insertAt(arr, idx, val) {
 }
 
 console.log("INSERT AT =>", insertAt(["a", "b", "c", "d"], 3, "meee"));
+
+// Remove At (Bonus Challenge)
+// Given an array and an index into array, remove and return the array value at that index. Do this without using built-in array methods except pop(). Think of popFront(arr) as equivalent to removeAt(arr,0).
+
+function removeAt(arr, idx) {
+  const value = arr[idx];
+
+  for (let i = idx + 1; i < arr.length; i++) {
+    arr[i - 1] = arr[i];
+  }
+  arr.pop();
+  console.log("new array", arr);
+  return value;
+}
+
+console.log("REMOVE AT => ", removeAt(["a", "b", "c", "d", "e"], 2));
