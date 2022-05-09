@@ -44,6 +44,16 @@ class SLL {
     }
     return false;
   }
+  length() {
+    let runner = this.head;
+    let sum = 0;
+
+    while (runner !== null) {
+      sum++;
+      runner = runner.next;
+    }
+    return sum;
+  }
 }
 
 let newList = new SLL();
@@ -53,3 +63,4 @@ console.log(newList.addFront(3));
 console.log(newList.removeFront());
 console.log(newList.front());
 console.log(newList.contains(1));
+console.log(newList.length());
