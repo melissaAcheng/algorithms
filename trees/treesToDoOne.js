@@ -53,8 +53,40 @@ class BST {
       return false;
     }
   }
+  min() {
+    if (!this.root) {
+      return null;
+    } else {
+      let runner = this.root;
+      let min = this.root.val;
+      while (runner.left) {
+        if (runner.left.val < min) {
+          min = runner.left.val;
+        }
+        runner = runner.left;
+      }
+      return min;
+    }
+  }
+  max() {
+    if (!this.root) {
+      return null;
+    } else {
+      let runner = this.root;
+      let max = this.root.val;
+      while (runner.right) {
+        if (runner.right.val > max) {
+          max = runner.right.val;
+        }
+        runner = runner.right;
+      }
+      return max;
+    }
+  }
 }
 
 let newTree = new BST();
 newTree.add(2).add(5).add(3).add(9).add(1);
 console.log(newTree.contains(3));
+console.log(newTree.min());
+console.log(newTree.max());
