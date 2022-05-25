@@ -1,3 +1,5 @@
+const e = require("cors");
+
 class BTNode {
   constructor(value) {
     this.val = value;
@@ -34,7 +36,25 @@ class BST {
       }
     }
   }
+  contains(val) {
+    if (!this.root) {
+      return false;
+    } else {
+      let runner = this.root;
+      while (runner) {
+        if (val === runner.val) {
+          return true;
+        } else if (val < runner.val) {
+          runner = runner.left;
+        } else {
+          runner = runner.right;
+        }
+      }
+      return false;
+    }
+  }
 }
 
 let newTree = new BST();
-console.log(newTree.add(2).add(5).add(3).add(9).add(1));
+newTree.add(2).add(5).add(3).add(9).add(1);
+console.log(newTree.contains(3));
