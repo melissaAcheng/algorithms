@@ -66,4 +66,66 @@ let grid = [
   [1, 1, 0],
   [0, 1, 1],
 ];
-console.log(orangesRotting(grid));
+
+// console.log(orangesRotting(grid));
+
+
+// 204. Course Schedule
+// There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
+
+// For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
+// Return true if you can finish all courses. Otherwise, return false.
+
+ var canFinish = function(numCourses, prerequisites) {
+  // create graph
+  const graph = buildGraph(numCourses, prerequisites);
+
+  // if there is a cycle, return false
+  const visited = new Set();
+  for (let node in graph) {
+      if (findCycle(graph, node, visited, new Set())) {
+          return false;
+      } // if cycle is found (true) then return false;
+  }
+
+  return true;
+};
+
+const findCycle = (graph, node, visited, visiting) => {
+  if (visited.has(graph[node])) return false;
+  if (visiting.has(graph[node])) return true;
+  visiting.add(graph[node]);
+
+  for (let neighbor of graph[node]) {
+      if (findCycle(graph, neighbor, visited, visiting)) {
+          return true;
+      }
+  }
+
+  visited.add(graph[node]);
+  visiting.delete(graph[node]);
+  return false;
+}
+
+
+
+const buildGraph = (numCourses, prerequisites) => {
+  const graph = {};
+
+  for (let i = 0; i < numCourses; i++) {
+      graph[i] = [];
+  }
+
+  // fill prereqs
+  for (let prereq of prerequisites) {
+      const [a, b] = prereq;
+      graph[a].push(b);
+  }
+
+  return graph;
+}
+
+let numCourses = 2;
+let prerequisites = [[1,0], [0,1]];
+
+console.log(canFinish(numCourses, prerequisites));
