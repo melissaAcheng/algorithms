@@ -128,4 +128,62 @@ const buildGraph = (numCourses, prerequisites) => {
 let numCourses = 2;
 let prerequisites = [[1,0], [0,1]];
 
-console.log(canFinish(numCourses, prerequisites));
+// console.log(canFinish(numCourses, prerequisites));
+
+
+// 323. Number of Connected Components in an Undirected Graph
+// You have a graph of n nodes. You are given an integer n and an array edges where edges[i] = [ai, bi] indicates that there is an edge between ai and bi in the graph.
+
+// Return the number of connected components in the graph.
+
+ var countComponents = function(n, edges) {
+  let count = 0;
+  // build adjacency graph
+  let graph = buildGraph1(n, edges);
+  const visited = new Set();
+  
+  // use DFS to find number of connected components
+  for (let node in graph) {
+      if (explore(graph, node, visited)) {
+          count += 1;
+      } // whenever this returns true, a component was fully found, add one to count
+
+  }
+
+  return count;
+};
+
+const explore = (graph, node, visited) => {
+  if (visited.has(graph[node])) return false;
+  visited.add(graph[node]);
+
+  for (let neighbor of graph[node]) {
+      explore(graph, neighbor, visited)
+  }
+
+  return true;
+}
+
+const buildGraph1 = (n, edges) => {
+  const graph = {};
+
+  for (let i = 0; i < n; i++) {
+      graph[i] = [];
+  }
+
+  for (let edge of edges) {
+      const [a, b] = edge;
+      graph[a].push(b);
+      graph[b].push(a);
+  }
+
+  return graph;
+}
+
+let n = 5;
+let edges = [[0,1],[1,2],[3,4]];
+
+// console.log(countComponents(n, edges));
+
+// Time: O(N) - traversing through each node and it's neighbors once
+// Space: O(N) - the visited set is as big as there are nodes
