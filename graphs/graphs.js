@@ -92,9 +92,9 @@ let grid = [
 };
 
 const findCycle = (graph, node, visited, visiting) => {
-  if (visited.has(graph[node])) return false;
-  if (visiting.has(graph[node])) return true;
-  visiting.add(graph[node]);
+  if (visited.has(node)) return false;
+  if (visiting.has(node)) return true;
+  visiting.add(node);
 
   for (let neighbor of graph[node]) {
       if (findCycle(graph, neighbor, visited, visiting)) {
@@ -102,8 +102,8 @@ const findCycle = (graph, node, visited, visiting) => {
       }
   }
 
-  visited.add(graph[node]);
-  visiting.delete(graph[node]);
+  visited.add(node);
+  visiting.delete(node);
   return false;
 }
 
@@ -126,9 +126,9 @@ const buildGraph = (numCourses, prerequisites) => {
 }
 
 let numCourses = 2;
-let prerequisites = [[1,0], [0,1]];
+let prerequisites = [[1,0]];
 
-// console.log(canFinish(numCourses, prerequisites));
+console.log(canFinish(numCourses, prerequisites));
 
 
 // 323. Number of Connected Components in an Undirected Graph
@@ -187,3 +187,69 @@ let edges = [[0,1],[1,2],[3,4]];
 
 // Time: O(N) - traversing through each node and it's neighbors once
 // Space: O(N) - the visited set is as big as there are nodes
+
+
+// 261. Graph Valid Tree
+// You have a graph of n nodes labeled from 0 to n - 1. You are given an integer n and a list of edges where edges[i] = [ai, bi] indicates that there is an undirected edge between nodes ai and bi in the graph.
+
+// Return true if the edges of the given graph make up a valid tree, and false otherwise.
+
+
+ var validTree = function(n, edges) {
+  if (edges.length != n - 1) return false;
+
+  // build adjacency list
+  let graph = buildGraph2(n, edges);
+
+  // because this is an undirected graph
+  // keep track of the node and its parent
+  let parent = {0: -1};
+  let stack = [0];
+
+  // DFS using iterative stack to check
+  // if the neighbor node is equal to the parent of the node (cycle), continue to next iteration
+  // if the neighbor node already exists in parent map, it means we have already visited it, return false (there's a cycle between two or more nodes)
+  while (stack.length > 0) {
+      let node = stack.pop();
+
+      for (let neighbor of graph[node]) {
+          if (neighbor == parent[node]) {
+              continue;
+          } else if (neighbor in parent) {
+              return false;
+          }
+          parent[neighbor] = node;
+          stack.push(neighbor);
+      }
+  }
+
+  // check if all nodes have been seen
+  return Object.keys(parent).length === n;
+};
+
+
+
+const buildGraph2 = (n, edges) => {
+  const graph = {};
+
+  for (let i = 0; i < n; i++) {
+      graph[i] = [];
+  }
+
+  for (let edge of edges) {
+      const [a,b] = edge;
+      graph[a].push(b);
+      graph[b].push(a);
+  }
+
+  return graph;
+}
+
+let x = 5;
+let e = [[0,1],[0,2],[0,3],[1,4]];
+console.log(validTree(x, e));
+
+// if N = nodes
+// if E = edges
+// Time: O(N + E)
+// Space: O(N + E)
