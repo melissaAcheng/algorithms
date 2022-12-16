@@ -27,11 +27,8 @@ const merged = (nums1, nums2) => {
 		}
 	}
 
-	if (p1 >= nums1.length) {
-		merged.push(...nums2.slice(p2));
-	} else {
-		merged.push(...nums1.slice(p1));
-	}
+  merged.push(...nums1.slice(p1));
+  merged.push(...nums2.slice(p2));
 
 	return merged;
 };
