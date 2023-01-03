@@ -71,3 +71,46 @@ def pair_sum(numbers, target_sum):
 
 
 print(pair_sum([3, 2, 5, 4, 1], 8))
+
+# n = length of numbers
+# Time = O(n)
+# Space = O(n)
+
+
+# 013 Intersection
+
+# Write a function, intersection, that takes in two lists, a,b, as arguments. The function should return a new list containing elements that are in both of the two lists.
+
+# You may assume that each input list does not contain duplicate elements.
+
+def intersection(a, b):
+    duplicates = []
+
+    items = set(a)
+
+    for ele in b:
+        if ele in items:
+            duplicates.append(ele)
+
+    return duplicates
+
+
+a = [4, 2, 1, 6]
+b = [3, 6, 9, 2, 10]
+
+print(intersection(a, b))
+
+# n = length of list a
+# m = length of list b
+# Time = O(n + m)
+# Space = O(n)
+
+# Using a set and list comprehension to create a new list based on the values of an exisiting list
+
+
+def intersection_2(a, b):
+    items = set(a)
+    return [ele for ele in b if ele in items]
+
+
+print(intersection_2(a, b))
