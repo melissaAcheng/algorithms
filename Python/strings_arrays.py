@@ -1,3 +1,5 @@
+from collections import Counter
+
 # 009 Most Frequent Char
 
 # Write a function, most_frequent_char, that takes in a string as an argument. The function should return the most frequent character of the string. If there are ties, return the character that appears earlier in the string.
@@ -25,3 +27,16 @@ def most_freq_char(s):
   return best
 
 print(most_freq_char("bookeeper"))
+
+# With built-in Counter function
+def most_frequent_char(s):
+  count = Counter(s)
+  
+  best = None
+  for char in s:
+    if best is None or count[char] > count[best]:
+      best = char
+  
+  return best
+
+print(most_frequent_char("bookeepper"))
