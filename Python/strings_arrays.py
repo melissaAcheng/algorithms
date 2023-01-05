@@ -123,21 +123,50 @@ print(intersection_2(a, b))
 
 # Using Two-Pointers
 
-def five_sort(nums):
-  i = 0
-  j = len(nums) - 1
 
-  while i < j:
-    if nums[j] == 5:
-      j -= 1
-    elif nums[i] == 5:
-      nums[i], nums[j] = nums[j], nums[i]
-      i += 1
-    else:
-      i += 1
-  
-  return nums
+def five_sort(nums):
+    i = 0
+    j = len(nums) - 1
+
+    while i < j:
+        if nums[j] == 5:
+            j -= 1
+        elif nums[i] == 5:
+            nums[i], nums[j] = nums[j], nums[i]
+            i += 1
+        else:
+            i += 1
+
+    return nums
 
 # n = length of nums
 # Time = O(n)
 # Space = O(1)
+
+
+# HackerRank Swap-Case
+
+# You are given a string and your task is to swap cases. In other words, convert all lowercase letters to uppercase letters and vice versa.
+
+def swap_case(s):
+    # strings are immutable, so convert string to array
+    # loop through each char in array
+    # check the ASCII code for uppercase or lowercase
+    # change upper to lower and vice versa, updating the char at that index
+    # return the array as a string
+    arr = list(s)
+
+    for idx, char in enumerate(arr):
+        if ord(char) >= 65 and ord(char) <= 90:  # uppercase
+            arr[idx] = char.lower()
+        elif ord(char) >= 97 and ord(char) <= 122:  # lowercase
+            arr[idx] = char.upper()
+
+    return "".join(arr)
+
+
+print(swap_case("HackerRank.com presents 'Pythonist 2'"))
+
+# n = length of s
+# Time - O(n) because you are checking each char in the s
+# Space - O(n) created arr with length of s
