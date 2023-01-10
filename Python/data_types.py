@@ -33,3 +33,7 @@ def palindromeIndex(s):
 
 
 print(palindromeIndex("baaa"))
+
+# n = length of s
+# Time = O(n) 
+# Space = O(1) using two pointers
