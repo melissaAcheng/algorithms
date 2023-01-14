@@ -60,4 +60,55 @@ def truckTour(petrolpumps):
 
 
 p = [[1, 5], [10, 3], [3, 4]]
-print(truckTour(p))
+# print(truckTour(p))
+
+# Merge two sorted linked lists into a single, sorted linked list
+class Node:
+  def __init__(self, val):
+    self.val = val
+    self.next = None
+
+def merge_lists(head1, head2):
+  p1 = head1
+  p2 = head2
+  dummyHead = Node(None)
+  head = dummyHead
+
+  while p1 != None and p2 != None:
+    if p1.val <= p2.val:
+      head.next = p1
+      p1 = p1.next
+    else:
+      head.next = p2
+      p2 = p2.next
+    head = head.next
+
+  if p1 != None: head.next = p1
+  if p2 != None: head.next = p2
+
+  return dummyHead.next
+
+a = Node(5)
+b = Node(7)
+c = Node(10)
+d = Node(12)
+e = Node(20)
+f = Node(28)
+a.next = b
+b.next = c
+c.next = d
+d.next = e
+e.next = f
+# 5 -> 7 -> 10 -> 12 -> 20 -> 28
+
+q = Node(6)
+r = Node(8)
+s = Node(9)
+t = Node(25)
+q.next = r
+r.next = s
+s.next = t
+# 6 -> 8 -> 9 -> 25
+
+print(merge_lists(a, q))
+# 5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 12 -> 20 -> 25 -> 28 
