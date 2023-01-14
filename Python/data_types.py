@@ -63,30 +63,36 @@ p = [[1, 5], [10, 3], [3, 4]]
 # print(truckTour(p))
 
 # Merge two sorted linked lists into a single, sorted linked list
+
+
 class Node:
-  def __init__(self, val):
-    self.val = val
-    self.next = None
+    def __init__(self, val):
+        self.val = val
+        self.next = None
+
 
 def merge_lists(head1, head2):
-  p1 = head1
-  p2 = head2
-  dummyHead = Node(None)
-  head = dummyHead
+    p1 = head1
+    p2 = head2
+    dummyHead = Node(None)
+    head = dummyHead
 
-  while p1 != None and p2 != None:
-    if p1.val <= p2.val:
-      head.next = p1
-      p1 = p1.next
-    else:
-      head.next = p2
-      p2 = p2.next
-    head = head.next
+    while p1 != None and p2 != None:
+        if p1.val <= p2.val:
+            head.next = p1
+            p1 = p1.next
+        else:
+            head.next = p2
+            p2 = p2.next
+        head = head.next
 
-  if p1 != None: head.next = p1
-  if p2 != None: head.next = p2
+    if p1 != None:
+        head.next = p1
+    if p2 != None:
+        head.next = p2
 
-  return dummyHead.next
+    return dummyHead.next
+
 
 a = Node(5)
 b = Node(7)
@@ -110,5 +116,43 @@ r.next = s
 s.next = t
 # 6 -> 8 -> 9 -> 25
 
-print(merge_lists(a, q))
-# 5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 12 -> 20 -> 25 -> 28 
+# print(merge_lists(a, q))
+# 5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 12 -> 20 -> 25 -> 28
+
+# Queue with Two Stacks
+stack1 = []
+stack2 = []
+
+
+def enqueue(num):
+    stack1.append(num)
+
+
+def shiftStack():
+    # if stack2 is empty, then move the elements from stack1 so that the oldest elements is on top in stack2
+    if not stack2:
+        while stack1:
+            stack2.append(stack1.pop())
+
+
+def dequeue():
+    shiftStack()
+    # return the last element of stack2 (which is the oldest element)
+    return stack2.pop()
+
+
+def printqueue():
+    shiftStack()
+    print(stack2[-1])
+
+
+enqueue(42)
+dequeue()
+enqueue(14)
+printqueue()
+enqueue(28)
+printqueue()
+enqueue(60)
+enqueue(78)
+dequeue()
+dequeue()
