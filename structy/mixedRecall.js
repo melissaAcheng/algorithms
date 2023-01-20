@@ -169,4 +169,30 @@ const buildTreeInPost = (inOrder, postOrder) => {
 	return root;
 };
 
-console.log(buildTreeInPost(["d", "b", "e", "a", "f", "c", "g"], ["d", "e", "b", "f", "g", "c", "a"]));
+// console.log(buildTreeInPost(["d", "b", "e", "a", "f", "c", "g"], ["d", "e", "b", "f", "g", "c", "a"]));
+
+// Time = O(n^2) because of the slicing which creates a copy
+// Space = O(n^2)
+
+
+
+// inOrder -> left, self, right
+// preOrder -> self, left, right
+
+const buildTreeInPre = (inOrder, preOrder) => {
+	if (inOrder.length === 0) return null;
+	// find self
+	const self = preOrder[0];
+	const root = new Node(self);
+	// find index of self in inOrder
+	const mid = inOrder.indexOf(self);
+	const leftIn = inOrder.slice(0, mid);
+	const rightIn = inOrder.slice(mid + 1);
+	const leftPre = preOrder.slice(1, leftIn.length + 1);
+	const rightPre = preOrder.slice(leftIn.length + 1);
+	root.left = buildTreeInPre(leftIn, leftPre);
+	root.right = buildTreeInPre(rightIn, rightPre);
+	return root;
+};
+
+console.log(buildTreeInPre(["d", "b", "g", "e", "h", "a", "c", "f"], ["a", "b", "d", "e", "g", "h", "c", "f"]));
