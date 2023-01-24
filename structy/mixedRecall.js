@@ -174,8 +174,6 @@ const buildTreeInPost = (inOrder, postOrder) => {
 // Time = O(n^2) because of the slicing which creates a copy
 // Space = O(n^2)
 
-
-
 // inOrder -> left, self, right
 // preOrder -> self, left, right
 
@@ -195,4 +193,32 @@ const buildTreeInPre = (inOrder, preOrder) => {
 	return root;
 };
 
-console.log(buildTreeInPre(["d", "b", "g", "e", "h", "a", "c", "f"], ["a", "b", "d", "e", "g", "h", "c", "f"]));
+// console.log(buildTreeInPre(["d", "b", "g", "e", "h", "a", "c", "f"], ["a", "b", "d", "e", "g", "h", "c", "f"]));
+
+// 124. Lexical Order
+
+const lexicalOrder = (word1, word2, alphabet) => {
+	// find the length of the longest word
+	// loop through indices from 0 to longest word length
+	// compare the indexOf in the alphabet
+	// if you go through all the indices and no difference was found, then return true
+	let length = Math.max(word1.length, word2.length);
+	for (let i = 0; i < length; i++) {
+		let val1 = alphabet.indexOf(word1[i])
+		let val2 = alphabet.indexOf(word2[i])
+		
+		if (val1 < val2) {
+			return true;
+		} else if (val2 < val1) {
+			return false;
+		}
+	}
+	return true;
+}
+
+const alphabet = "abcdefghijklmnopqrstuvwxyz";
+console.log(lexicalOrder("backs", "backdoor", alphabet));
+
+// n = length of shortest word
+// Time = O(n)
+// Space = O(1)
