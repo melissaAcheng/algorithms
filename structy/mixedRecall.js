@@ -204,9 +204,9 @@ const lexicalOrder = (word1, word2, alphabet) => {
 	// if you go through all the indices and no difference was found, then return true
 	let length = Math.max(word1.length, word2.length);
 	for (let i = 0; i < length; i++) {
-		let val1 = alphabet.indexOf(word1[i])
-		let val2 = alphabet.indexOf(word2[i])
-		
+		let val1 = alphabet.indexOf(word1[i]);
+		let val2 = alphabet.indexOf(word2[i]);
+
 		if (val1 < val2) {
 			return true;
 		} else if (val2 < val1) {
@@ -214,11 +214,26 @@ const lexicalOrder = (word1, word2, alphabet) => {
 		}
 	}
 	return true;
-}
+};
 
-const alphabet = "abcdefghijklmnopqrstuvwxyz";
-console.log(lexicalOrder("backs", "backdoor", alphabet));
+// const alphabet = "abcdefghijklmnopqrstuvwxyz";
+// console.log(lexicalOrder("backs", "backdoor", alphabet));
 
 // n = length of shortest word
 // Time = O(n)
 // Space = O(1)
+
+// 125. Detect Dictionary
+
+const detectDictionary = (dictionary, alphabet) => {
+	for (let i = 0; i < dictionary.length - 1; i += 1) {
+		const current = dictionary[i];
+		const next = dictionary[i + 1];
+		if (!lexicalOrder(current, next, alphabet)) return false;
+	}
+	return true;
+};
+
+const dictionary = ["zoo", "tick", "tack", "door"];
+const alphabet = "ghzstijbacdopnfklmeqrxyuvw";
+console.log(detectDictionary(dictionary, alphabet));
