@@ -39,9 +39,78 @@ function characterReplacement(s, k) {
 	return maxLength;
 }
 
-console.log(characterReplacement("AABCBBA", 1));
+// console.log(characterReplacement("AABCBBA", 1));
 
 // n = length of s
 // m = num of unique chars
 // Time = O(n)
 // Space = O(m)
+
+// 76. Minimum Window Substring
+
+// Given two strings s and t of lengths m and n respectively, return the minimum window
+// substring
+//  of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
+
+const minWindow = (s, t) => {
+	// if length of s is shorter than t, then return ""
+	if (s.length < t.length) return "";
+
+	// set up freq counts for t and s
+	const tCount = {};
+	const window = {};
+	for (let char of t) {
+		if (!(char in tCount)) tCount[char] = 0;
+		tCount[char] += 1;
+	}
+
+	// set up variables to check for min substring
+	let output = [-1, -1]; // initialize with two values (start, end)
+	let outputLen = Infinity; // trying to find the min length
+	let l = 0;
+
+	// variables for checking haves and needs
+	let have = 0;
+	let need = Object.keys(tCount).length;
+
+	// start iterating
+	for (let r = 0; r < s.length; r++) {
+		let char = s[r];
+		// update char count in window
+		if (!(char in window)) window[char] = 0;
+		window[char] += 1;
+
+
+		// update have count
+		if (char in tCount && window[char] === tCount[char]) {
+			have += 1;
+		}
+
+		// if have === need, then need to shrink window (left += 1)
+		while (have === need) {
+			// check for min
+			if (r - l + 1 < outputLen) {
+				output = [l, r];
+				outputLen = r - l + 1;
+			}
+
+			// shrink window from left to try and find min window with substring
+			window[s[l]] -= 1;
+			if (s[l] in tCount && window[s[l]] < tCount[s[l]]) {
+				have -= 1;
+			}
+			l += 1;
+		}
+	}
+
+	// destructure output
+	let [left, right] = output;
+
+
+	// return sliced string
+	return s.slice(left, right + 1);
+};
+
+let s = "ADOBECODEBANC";
+let t = "ABC";
+console.log(minWindow(s, t));
