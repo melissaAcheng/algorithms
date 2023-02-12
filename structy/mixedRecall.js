@@ -237,3 +237,98 @@ const detectDictionary = (dictionary, alphabet) => {
 const dictionary = ["zoo", "tick", "tack", "door"];
 const alphabet = "ghzstijbacdopnfklmeqrxyuvw";
 console.log(detectDictionary(dictionary, alphabet));
+
+// 069 knight attack
+// A knight and a pawn are on a chess board. Can you figure out the minimum number of moves required for the knight to travel to the same position of the pawn?
+
+// Approach: MINIMUM number of moves - use BFS which will return the first possible answer in min num of moves
+// keep track of already visited squares
+
+const knightAttack = (n, kr, kc, pr, pc) => {
+	const visited = new Set();
+	const key = kr + "," + kc;
+	visited.add(key);
+
+	const queue = [[kr, kc, 0]];
+	while (queue.length > 0) {
+		const [r, c, move] = queue.shift();
+
+		if (r === pr && c === pc) {
+			return move;
+		}
+
+		const neighbors = possibleKnightMoves(n, r, c);
+		for (let neighbor of neighbors) {
+			const [neighborRow, neighborCol] = neighbor;
+			const neighborKey = neighborRow + "," + neighborCol;
+			if (!visited.has(neighborKey)) {
+				visited.add(neighborKey);
+				queue.push([neighborRow, neighborCol, move + 1]);
+			}
+		}
+	}
+	return null;
+};
+
+// helper function to find possible moves
+const possibleKnightMoves = (n, r, c) => {
+	const output = [];
+
+	const positions = [
+		[r + 2, c + 1],
+		[r - 2, c + 1],
+		[r + 2, c - 1],
+		[r - 2, c - 1],
+		[r + 1, c + 2],
+		[r - 1, c + 2],
+		[r + 1, c - 2],
+		[r - 1, c - 2],
+	];
+
+	for (let pos of positions) {
+		const [newRow, newCol] = pos;
+		if (newRow < n && newRow >= 0 && newCol < n && newCol >= 0) {
+			output.push([newRow, newCol]);
+		}
+	}
+
+	return output;
+};
+
+console.log(knightAttack(8, 0, 3, 4, 2));
+
+// 087 knightly number
+
+// A knight is on a chess board. Can you figure out the total number of ways the knight can move to a target position in exactly m moves?
+
+const knightlyNumber = (n, m, kr, kc, pr, pc) => {
+	let count = 0;
+
+	if (m === 0) {
+		if (kr === pr && kc === pc) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+
+	const nbors = [
+		[kr + 2, kc + 1],
+		[kr - 2, kc + 1],
+		[kr + 2, kc - 1],
+		[kr - 2, kc - 1],
+		[kr + 1, kc + 2],
+		[kr - 1, kc + 2],
+		[kr + 1, kc - 2],
+		[kr - 1, kc - 2],
+	];
+
+	for (let nbor of nbors) {
+		const [row, col] = nbor;
+		count += knightlyNumber(n, m - 1, row, col, pr, pc);
+	}
+
+	return count;
+};
+
+console.log(knightlyNumber(8, 2, 4, 4, 5, 5));
