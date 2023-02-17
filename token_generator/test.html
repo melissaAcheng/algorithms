@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			body {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.text-box {
+				margin-top: 2rem;
+			}
+
+			#text-input {
+				margin: 0.5rem 0;
+				width: 100%;
+			}
+
+			th {
+				text-align: start;
+				/* border: 2px solid blue; */
+			}
+
+			.keyValue {
+				/* border: 2px solid red; */
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+			<h1>Token Replacer</h1>
+			<div class="key-value">
+				<p>Enter keys enclosed in a pair of '$':</p>
+				<table class="key-value-input">
+					<tr>
+						<th>Key</th>
+						<th>Value</th>
+					</tr>
+					<tr>
+						<td>
+							<input type="text" id="key-1" />
+						</td>
+						<td>
+							<input type="text" id="value-1" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="text" id="key-2" />
+						</td>
+						<td>
+							<input type="text" id="value-2" />
+						</td>
+					</tr>
+				</table>
+				<button type="submit" id="key-value-btn">Submit Key Value Pairs</button>
+			</div>
+			<div class="text-box">
+				<label for="text-input">Enter Text:</label>
+				<br />
+				<input type="text" id="text-input" />
+				<br />
+				<button type="submit" id="button">Submit</button>
+			</div>
+			<div id="result-box"></div>
+		</div>
+
+		<script src="script.js"></script>
+	</body>
+</html>
